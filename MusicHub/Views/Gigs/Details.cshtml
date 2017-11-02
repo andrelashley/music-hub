@@ -1,0 +1,41 @@
+﻿@model MusicHub.Core.ViewModels.GigDetailsViewModel
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>
+    <span>
+        @Model.Artist.Name
+        @if (Model.ShowActions)
+        {
+            <button data-artist-id="@Model.Artist.Id"
+                    class="btn @(Model.CurrentUserIsFollowingArtist ? "btn-primary" : "btn-default")
+                            btn-lg js-toggle-relationship">
+                @if (Model.CurrentUserIsFollowingArtist)
+                {
+                    @Html.Raw("Following")
+                }
+                else
+                {
+                    @Html.Raw("Follow")
+                }
+            </button>
+        }
+    </span>
+</h1>
+<p>Performing at @Model.Venue on @Model.Date at @Model.Time</p>
+
+@if (Model.CurrentUserIsAttending && User.Identity.IsAuthenticated)
+{
+    <p>You are going to this event.</p>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            RelationshipsController.init(".js-toggle-relationship");
+        });
+    </script>
+}

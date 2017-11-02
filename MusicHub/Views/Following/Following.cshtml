@@ -1,0 +1,14 @@
+﻿@model MusicHub.Core.ViewModels.FollowingViewModel
+@{
+    ViewBag.Title = "Following";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>@Model.Heading</h1>
+
+<ul class="voffset4">
+    @foreach (var followee in Model.Following)
+    {
+        <li>@followee.Name</li>
+    }
+</ul>
